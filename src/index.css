@@ -80,6 +80,7 @@ h1,h2,h3,h4,h5,h6 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color:black;
 }
 
 .user-info__stats {
@@ -104,4 +105,26 @@ h1,h2,h3,h4,h5,h6 {
 .user-info__stat p {
     margin: 0;
     white-space: nowrap;
+}
+.follow-list {
+  margin:0;
+  padding:0;
+}
+.followers-item, .following-item {
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  color:black;
+}
+
+.followers-list-item, .following-list-item {
+  list-style: none;
+  padding-bottom:10px;
+}
+
+.user-img {
+  height:40px;
+  width:40px;
+  border-radius:50%;
+  margin-right:10px;
 }
