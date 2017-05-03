@@ -106,18 +106,38 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     white-space: nowrap;
 }
+
+.repos-container {
+  display:flex;
+}
+
+.repos-container > a {
+  margin-right:10px;
+}
+
+.stars-container {
+  width:50px;
+  display:flex;
+  justify-content: flex-end;
+  border: 1px solid black;
+  padding-left:3px;
+  padding-right:3px;
+  font-size:0.8em;
+}
+
+
 .follow-list {
   margin:0;
   padding:0;
 }
-.followers-item, .following-item {
+.followers-item, .following-item, .repos-item {
   text-decoration:none;
   display:flex;
   align-items:center;
   color:black;
 }
 
-.followers-list-item, .following-list-item {
+.followers-list-item, .following-list-item, .repos-list-items {
   list-style: none;
   padding-bottom:10px;
 }
