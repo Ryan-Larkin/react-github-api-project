@@ -1,37 +1,46 @@
 import React from 'react';
 import GithubUser from './GithubUser';
+import Infinite from 'react-infinite';
+
+const GITHUB_API_KEY = '3768e8dd72d299453224875aed0c6a59274a1e46';
 
 class Following extends React.Component {
   constructor() {
       super();
-      this.state = {};
+      this.state = {
+        page: 1,
+        loading: false,
+        following: []
+      };
   }
 
-  componentDidMount() {
-    fetch(`https://api.github.com/users/${this.props.params.username}/following`)
+  fetchData = () => {
+    fetch(`https://api.github.com/users/${this.props.params.username}/following?access_token=${GITHUB_API_KEY}&page=${this.state.page}&per_page=50`)
     .then(data => data.json())
     .then(followingData => {
       this.setState({
-        following: followingData
+        page: this.state.page + 1,
+        loading: false,
+        following: this.state.following.concat(followingData)
       });
     });
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   renderFollowingList(following) {
-    return (<li key={following.id} className="following-list-item"><GithubUser user={following} /></li>);
+    return (<GithubUser key={following.id} user={following} className="following-item" />);
   }
 
   render() {
-    if (!this.state.following) {
-      return <div>LOADING USERS YOU ARE FOLLOWING...</div>;
-    }
-
     return (
-      <div className="following-page">
+      <div>
         <h3>{this.props.params.username} is following: </h3>
-        <ul className="following-list follow-list">
+        <Infinite className="following-page" isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData} useWindowAsScrollContainer elementHeight={40} infiniteLoadBeginEdgeOffset={100} loadingSpinnerDelegate={<div>LOADING...</div>}>
           {this.state.following.map(this.renderFollowingList)}
-        </ul>
+        </Infinite>
       </div>
     );
   }
